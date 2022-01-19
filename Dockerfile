@@ -7,15 +7,13 @@ ENV SONAR_VERSION=$SONAR_VERSION_ARG \
     SONARQUBE_JDBC_URL=jdbc:postgresql://sonarqube-db:5432/sonar
 EXPOSE 9000
 WORKDIR /opt
-RUN addgroup -S sonarqube && adduser -S -G sonarqube sonarqube
 RUN set -x && \
-    apk add --no-cache bash su-exec wget && \
-    apk add --no-cache --virtual .build-deps gnupg unzip libressl && \
+    apt update && apt install -y bash wget && \
+    apt install -y  gnupg unzip && \
     wget -O sonarqube.zip --no-verbose https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-$SONAR_VERSION.zip && \
     unzip sonarqube.zip && \
     mv sonarqube-$SONAR_VERSION sonarqube && \
     chown -R sonarqube:sonarqube sonarqube && \
-    apk del .build-deps && \
     rm sonarqube.zip* && \
     rm -rf $SONARQUBE_HOME/bin/*
 WORKDIR $SONARQUBE_HOME
