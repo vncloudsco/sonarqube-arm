@@ -13,7 +13,6 @@ RUN set -x && \
     wget -O sonarqube.zip --no-verbose https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-$SONAR_VERSION.zip && \
     unzip sonarqube.zip && \
     mv sonarqube-$SONAR_VERSION sonarqube && \
-    chown -R sonarqube:sonarqube sonarqube && \
     rm sonarqube.zip* && \
     rm -rf $SONARQUBE_HOME/bin/*
 WORKDIR $SONARQUBE_HOME
