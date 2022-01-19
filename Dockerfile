@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-ARG SONAR_VERSION_ARG
+ARG SONAR_VERSION_ARG=9.2.4.50792
 ENV SONAR_VERSION=$SONAR_VERSION_ARG \
     SONARQUBE_HOME=/opt/sonarqube \
     SONARQUBE_JDBC_USERNAME=sonar-user \
@@ -11,7 +11,7 @@ RUN addgroup -S sonarqube && adduser -S -G sonarqube sonarqube
 RUN set -x && \
     apk add --no-cache bash su-exec wget && \
     apk add --no-cache --virtual .build-deps gnupg unzip libressl && \
-    wget -O sonarqube.zip --no-verbose https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-$SONAR_VERSION.zip && \
+    wget -O sonarqube.zip --no-verbose https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-$SONAR_VERSION.zip && \
     unzip sonarqube.zip && \
     mv sonarqube-$SONAR_VERSION sonarqube && \
     chown -R sonarqube:sonarqube sonarqube && \
